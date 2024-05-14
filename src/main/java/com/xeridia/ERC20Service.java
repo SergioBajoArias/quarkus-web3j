@@ -1,6 +1,6 @@
 package com.xeridia;
 
-import com.xeridia.solidity.HelloWorld;
+import com.xeridia.solidity.ERC20;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.web3j.crypto.Credentials;
@@ -8,8 +8,10 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
 
+import java.math.BigInteger;
+
 @ApplicationScoped
-public class GreetingService {
+public class ERC20Service {
 
     @ConfigProperty(name = "blockchain.network")
     String blockchainNetwork;
@@ -19,18 +21,21 @@ public class GreetingService {
 
     private static String contractAddress;
 
-    public String deploy() throws Exception {
+    private String deploy() throws Exception {
         Credentials credentials = Credentials.create(blockchainAccountPrivateKey);
         Web3j web3j = Web3j.build(new HttpService(blockchainNetwork));
-        HelloWorld helloWorld = HelloWorld.deploy(web3j, credentials, new DefaultGasProvider()).send();
-        contractAddress = helloWorld.getContractAddress();
+        ERC20 erc20 = ERC20.deploy(web3j, credentials, new DefaultGasProvider()).send();
+        contractAddress = erc20.getContractAddress();
         return contractAddress;
     }
 
-    public String hello(String name) throws Exception {
+    public BigInteger balanceOf() throws Exception {
         Credentials credentials = Credentials.create(blockchainAccountPrivateKey);
         Web3j web3j = Web3j.build(new HttpService(blockchainNetwork));
-        HelloWorld helloWorld = HelloWorld.load(contractAddress, web3j, credentials, new DefaultGasProvider());
-        return helloWorld.sayHello(name).send();
+        if(contractAddress == null) {
+            deploy();
+        }
+        ERC20 erc20 = ERC20.load(contractAddress, web3j, credentials, new DefaultGasProvider());
+        return erc20.balanceOf().send();
     }
 }
