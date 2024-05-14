@@ -11,18 +11,26 @@ import org.web3j.tx.gas.DefaultGasProvider;
 @ApplicationScoped
 public class GreetingService {
 
-    @ConfigProperty(name = "blockchain.network.host")
-    String blockchainNetworkHost;
+    @ConfigProperty(name = "blockchain.network")
+    String blockchainNetwork;
 
-    @ConfigProperty(name = "blockchain.network.port")
-    int blockchainNetworkPort;
+    @ConfigProperty(name = "blockchain.account.privateKey")
+    String blockchainAccountPrivateKey;
 
-    private String blockchainConnectionChain = "http://" + blockchainNetworkHost + ":" + blockchainNetworkPort;
+    private static String contractAddress;
+
     public String deploy() throws Exception {
-        Credentials credentials = Credentials.create("0xafcec06329da0bdfa387c63102a4a8ea58ebc8d849136824217d8fb310587e1c");
-
-        Web3j web3j = Web3j.build(new HttpService(blockchainConnectionChain));
+        Credentials credentials = Credentials.create(blockchainAccountPrivateKey);
+        Web3j web3j = Web3j.build(new HttpService(blockchainNetwork));
         HelloWorld helloWorld = HelloWorld.deploy(web3j, credentials, new DefaultGasProvider()).send();
-        return helloWorld.getContractAddress();
+        contractAddress = helloWorld.getContractAddress();
+        return contractAddress;
+    }
+
+    public String hello(String name) throws Exception {
+        Credentials credentials = Credentials.create(blockchainAccountPrivateKey);
+        Web3j web3j = Web3j.build(new HttpService(blockchainNetwork));
+        HelloWorld helloWorld = HelloWorld.load(contractAddress, web3j, credentials, new DefaultGasProvider());
+        return helloWorld.sayHello(name).send();
     }
 }

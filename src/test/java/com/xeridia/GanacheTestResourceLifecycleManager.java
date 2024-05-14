@@ -20,14 +20,14 @@ public class GanacheTestResourceLifecycleManager implements QuarkusTestResourceL
     @Override
     public Map<String, String> start() {
         container = new GenericContainer(GANACHE_IMAGE)
+                .withCommand("-e 999999999999999999 --wallet.deterministic true")
                 .withExposedPorts(GANACHE_PORT)
                 .waitingFor(Wait.forListeningPort());
 
         container.start();
 
         return Map.of(
-                "blockchain.network.host", container.getHost(),
-                "blockchain.network.port", container.getMappedPort(GANACHE_PORT).toString()
+                "blockchain.network", "http://" + container.getHost() + ":" + container.getMappedPort(GANACHE_PORT)
         );
     }
 
