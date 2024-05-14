@@ -35,6 +35,7 @@ public class ERC20Service {
     }
 
     private String getContractAddress() {
+        // TODO: In a real scenario, the contract address should be persisted in order to be accessed again
         return null;
     }
 
