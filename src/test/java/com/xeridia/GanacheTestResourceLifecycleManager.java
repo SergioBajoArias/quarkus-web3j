@@ -33,6 +33,8 @@ public class GanacheTestResourceLifecycleManager implements QuarkusTestResourceL
 
     @Override
     public void stop() {
-
+        if(container != null) {
+            container.stop();
+        }
     }
 }
