@@ -3,6 +3,8 @@ package com.xeridia.solidity;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
@@ -26,6 +28,7 @@ import org.web3j.tx.gas.ContractGasProvider;
  * <p>Generated with web3j version 4.10.3.
  */
 @SuppressWarnings("rawtypes")
+@RegisterForReflection
 public class ERC20 extends Contract {
     public static final String BINARY = "60806040525f80553480156011575f80fd5b5060df8061001e5f395ff3fe6080604052348015600e575f80fd5b50600436106030575f3560e01c8063722713f7146034578063a0712d68146048575b5f80fd5b5f5460405190815260200160405180910390f35b60576053366004606f565b6059565b005b805f80828254606791906085565b909155505050565b5f60208284031215607e575f80fd5b5035919050565b8082018082111560a357634e487b7160e01b5f52601160045260245ffd5b9291505056fea264697066735822122059fa6e9e39f9ebfd310eebd79df727869810ec035ea6ba3b8a840469e82c3f2e64736f6c63430008190033";
 
