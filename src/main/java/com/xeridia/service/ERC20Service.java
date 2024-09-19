@@ -32,6 +32,7 @@ public class ERC20Service {
         } else {
             erc20 = ERC20.load(contractAddress, web3j, credentials, new DefaultGasProvider());
         }
+        System.out.println();
     }
 
     private String getContractAddress() {
