@@ -2,7 +2,7 @@ services:
   ganache:
     container_name: ganache
     image: "trufflesuite/ganache"
-    command: -e 999999999999999999 --wallet.deterministic true
+    command: -e 999999999999999999 --wallet.deterministic true --logging.verbose true
     ports:
       - 8545:8545
     networks:

@@ -43,7 +43,7 @@ public class GanacheTestResourceLifecycleManager implements QuarkusTestResourceL
             blockchainNetwork = "http://ganache:" + GANACHE_PORT;
         } else {
             container = new GenericContainer(GANACHE_IMAGE)
-                    .withCommand("-e 999999999999999999 --wallet.deterministic true")
+                    .withCommand("-e 999999999999999999 --wallet.deterministic true --logging.verbose true")
                     .withExposedPorts(GANACHE_PORT)
                     .waitingFor(Wait.forListeningPort());
 
