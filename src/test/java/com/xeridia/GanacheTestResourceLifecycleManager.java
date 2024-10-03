@@ -36,14 +36,14 @@ public class GanacheTestResourceLifecycleManager implements QuarkusTestResourceL
         if(containerNetworkId.isPresent()) {
             dockerComposeContainer = new DockerComposeContainer(
                     new File("src/test/resources/docker-compose-ganache.yml")
-            ).withLocalCompose(false);
+            ).withLocalCompose(true);
 
             dockerComposeContainer.start();
 
             blockchainNetwork = "http://ganache:" + GANACHE_PORT;
         } else {
             container = new GenericContainer(GANACHE_IMAGE)
-                    .withCommand("-e 999999999999999999 --wallet.deterministic true --logging.verbose true")
+                    .withCommand("-e 999999999999999999 --wallet.deterministic true")
                     .withExposedPorts(GANACHE_PORT)
                     .waitingFor(Wait.forListeningPort());
 

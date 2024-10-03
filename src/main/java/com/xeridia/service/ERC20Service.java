@@ -28,9 +28,6 @@ public class ERC20Service {
 
     @Startup
     public void deploy() throws Exception {
-
-        log.info("TEST: {}", new ObjectMapper().writeValueAsString(DefaultBlockParameter.valueOf("LATEST")));
-
         Credentials credentials = Credentials.create(blockchainAccountPrivateKey);
         Web3j web3j = Web3j.build(new HttpService(blockchainNetwork));
         String contractAddress = getContractAddress();

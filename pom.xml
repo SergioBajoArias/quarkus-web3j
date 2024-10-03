@@ -144,25 +144,6 @@
                     <packageName>com.xeridia.solidity</packageName>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.anthemengineering.mojo</groupId>
-                <artifactId>infer-maven-plugin</artifactId>
-                <version>0.1.0</version>
-                <configuration>
-                    <consoleOut>false</consoleOut>
-                    <download>false</download>
-                    <inferCommand>/mnt/c/entornos/Blockchain/workspaces/infer-linux64-v1.1.0/bin/infer</inferCommand>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <id>infer</id>
-                        <goals>
-                            <goal>infer</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
