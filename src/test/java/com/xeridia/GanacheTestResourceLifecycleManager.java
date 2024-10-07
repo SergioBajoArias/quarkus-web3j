@@ -36,7 +36,7 @@ public class GanacheTestResourceLifecycleManager implements QuarkusTestResourceL
         if(containerNetworkId.isPresent()) {
             dockerComposeContainer = new DockerComposeContainer(
                     new File("src/test/resources/docker-compose-ganache.yml")
-            ).withLocalCompose(false);
+            ).withLocalCompose(true);
 
             dockerComposeContainer.start();
 

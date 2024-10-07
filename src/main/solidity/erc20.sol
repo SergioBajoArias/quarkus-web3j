@@ -8,6 +8,11 @@ contract ERC20 {
         amount += mintedAmount;
     }
 
+    function burn(uint burnAmount) public {
+        require(burnAmount <= amount, "There aren't enough units to be burnt");
+        amount -= burnAmount;
+    }
+
     function balanceOf() external view returns (uint) {
         return amount;
     }

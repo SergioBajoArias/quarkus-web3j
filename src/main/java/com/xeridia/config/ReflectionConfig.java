@@ -14,6 +14,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
         org.web3j.protocol.core.methods.request.Transaction.class,
         org.web3j.abi.datatypes.generated.Uint256.class,
         org.web3j.protocol.core.DefaultBlockParameterName.class,
+        org.web3j.protocol.core.DefaultBlockParameterNumber.class
 })
 public class ReflectionConfig {
 }

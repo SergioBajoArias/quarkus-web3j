@@ -9,6 +9,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.exceptions.TransactionException;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
 
@@ -36,7 +38,6 @@ public class ERC20Service {
         } else {
             erc20 = ERC20.load(contractAddress, web3j, credentials, new DefaultGasProvider());
         }
-        System.out.println();
     }
 
     private String getContractAddress() {
@@ -48,7 +49,13 @@ public class ERC20Service {
         return erc20.balanceOf().send();
     }
 
-    public void mint(Integer amount) throws Exception {
-        erc20.mint(BigInteger.valueOf(amount)).send();
+    public TransactionReceipt mint(Integer amount) throws Exception {
+        log.info("Minting {} units", amount);
+        return erc20.mint(BigInteger.valueOf(amount)).send();
+    }
+
+    public TransactionReceipt burn(Integer amount) throws Exception {
+        log.info("Burning {} units", amount);
+        return erc20.burn(BigInteger.valueOf(amount)).send();
     }
 }

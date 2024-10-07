@@ -5,6 +5,8 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.reactive.RestResponse;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.exceptions.TransactionException;
 
 import java.math.BigInteger;
 
@@ -23,8 +25,17 @@ public class ERC20Resource {
 
     @POST
     @Path("/mint")
-    public RestResponse mint(MintRequest mintRequest) throws Exception {
-        erc20Service.mint(mintRequest.getAmount());
-        return RestResponse.ok();
+    public TransactionReceipt mint(MintRequest mintRequest) throws Exception {
+        return erc20Service.mint(mintRequest.getAmount());
+    }
+
+    @POST
+    @Path("/burn")
+    public TransactionReceipt burn(BurnRequest burnRequest) throws Exception {
+        try {
+            return erc20Service.burn(burnRequest.getAmount());
+        } catch (TransactionException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }
