@@ -1,8 +1,9 @@
 package com.xeridia.resource;
 
-import lombok.*;
-
-import java.math.BigInteger;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
